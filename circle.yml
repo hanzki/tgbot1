@@ -5,3 +5,9 @@ machine:
 dependencies:
   pre:
     - pip install ansible
+
+deployment:
+  staging:
+    branch: master
+    commands:
+      - ansible-playbook -i "localhost," -c local helloworld.yml
