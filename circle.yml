@@ -2,12 +2,9 @@ machine:
   python:
     version: 2.7.10
 
-checkout:
-  post:
-    - pip install -U pip setuptools virtualenv
-
 dependencies:
   pre:
+    - pip install setuptools virtualenv
     - pip install ansible
 
 deployment:
