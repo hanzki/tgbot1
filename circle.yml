@@ -4,7 +4,7 @@ machine:
 
 dependencies:
   pre:
-    - pip install setuptools virtualenv
+    - pip install --upgrade setuptools virtualenv
     - pip install ansible
 
 deployment:
