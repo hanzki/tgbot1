@@ -11,4 +11,7 @@ deployment:
   staging:
     branch: master
     commands:
+      - which python
+      - echo $PYTHONPATH
+      - echo $PATH
       - ansible-playbook helloworld.yml -i hosts -c local
