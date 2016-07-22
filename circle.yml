@@ -11,4 +11,4 @@ deployment:
   staging:
     branch: master
     commands:
-      - ansible helloworld.yml -i hosts -c local
+      - ansible-playbook helloworld.yml -i hosts -c local
