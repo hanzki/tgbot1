@@ -1,5 +1,4 @@
 ---
 - hosts: all
   tasks:
-    - shell: echo "hello world"
-    - s3: bucket=ansiblebucket mode=create
+    - s3: bucket=hannu-ansible-test mode=create

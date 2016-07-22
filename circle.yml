@@ -5,10 +5,10 @@ machine:
 dependencies:
   pre:
     - pip install --upgrade setuptools virtualenv
-    - pip install ansible
+    - pip install ansible boto
 
 deployment:
   staging:
     branch: master
     commands:
-      - bash -x deploy.sh
+      - ansible helloworld.yml -i hosts -c local
