@@ -113,5 +113,12 @@
       }
     }
 
+  },
+
+  "Outputs" : {
+    "LambdaArn": {
+      "Description": "Arn of the created lambda function",
+      "Value": { "Fn::GetAtt": [ "Lambda", "Arn" ] }
+    }
   }
 }
