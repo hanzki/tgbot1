@@ -41,7 +41,7 @@
     "Lambda": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
-        "Handler": "index.handler",
+        "Handler": "src/index.handler",
         "Role": { "Fn::GetAtt" : ["LambdaExecutionRole", "Arn"] },
         "Code": {
           "S3Bucket": { "Ref" : "LambdaS3Bucket" },
