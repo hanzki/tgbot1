@@ -37,4 +37,4 @@
       debug: msg="My stack outputs are {{stack.stack_outputs}}"
 
     - name: update lambda function
-      shell: aws lambda update-function-code --function-name {{ stack.stack_outputs.LambdaArn }} --s3-bucket {{ bucket_name }} --s3-key {{ lambda_s3_key }}
+      shell: aws lambda update-function-code --region {{ aws_region }} --function-name {{ stack.stack_outputs.LambdaArn }} --s3-bucket {{ bucket_name }} --s3-key {{ lambda_s3_key }}
