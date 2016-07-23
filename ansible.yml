@@ -13,14 +13,14 @@
     - s3: bucket={{ bucket_name }} region={{ aws_region }} mode=put object={{ lambda_s3_key }} src={{ lambda_path }}
     - s3: bucket={{ bucket_name }} region={{ aws_region }} mode=put object={{ cf_template_s3_key }} src={{ cf_template_path }}
     - cloudformation:
-      stack-name: {{ cf_stack_name }}
+      stack-name: "{{ cf_stack_name }}"
       state: present
-      region: {{ aws_region }}
+      region: "{{ aws_region }}"
       disable_rollback: true
-      template: {{ cf_template_path }}
+      template: "{{ cf_template_path }}"
       template_parameters:
-        LambdaS3Bucket: {{ bucket_name }}
-        LambdaS3Key: {{ lambda_s3_key }}
+        LambdaS3Bucket: "{{ bucket_name }}"
+        LambdaS3Key: "{{ lambda_s3_key }}"
         ApiName: "ansible-tgbot1"
       tags:
-        Stack: {{ cf_stack_name }}
+        Stack: "{{ cf_stack_name }}"
