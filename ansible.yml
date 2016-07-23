@@ -3,7 +3,24 @@
   vars:
     aws_region: eu-west-1
     bucket_name: tgbot1-bucket
+    cf_template_s3_key: cloudformation.json
+    cf_template_path: cloudformation.json
+    lambda_s3_key: lambda.zip
+    lambda_path: output.zip
+    cf_stack_name: tgbot1
   tasks:
     - s3: bucket={{ bucket_name }} region={{ aws_region }} mode=create
-    - s3: bucket={{ bucket_name }} region={{ aws_region }} mode=put object=lambda.zip src=output.zip
-    - s3: bucket={{ bucket_name }} region={{ aws_region }} mode=put object=cloudformation.json src=cloudformation.json
+    - s3: bucket={{ bucket_name }} region={{ aws_region }} mode=put object={{ lambda_s3_key }} src={{ lambda_path }}
+    - s3: bucket={{ bucket_name }} region={{ aws_region }} mode=put object={{ cf_template_s3_key }} src={{ cf_template_path }}
+    - cloudformation:
+      stack-name: {{ cf_stack_name }}
+      state: present
+      region: {{ aws_region }}
+      disable_rollback: true
+      template: {{ cf_template_path }}
+      template_parameters:
+        LambdaS3Bucket: {{ bucket_name }}
+        LambdaS3Key: {{ lambda_s3_key }}
+        ApiName: "ansible-tgbot1"
+      tags:
+        Stack: {{ cf_stack_name }}
