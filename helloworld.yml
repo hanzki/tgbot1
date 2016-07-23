@@ -1,4 +1,0 @@
----
-- hosts: all
-  tasks:
-    - s3: bucket=hannu-ansible-test2 mode=create region=eu-west-1

@@ -11,6 +11,5 @@ deployment:
   staging:
     branch: master
     commands:
-      - printenv
-      - bash -x hosts.sh
-      - ansible-playbook helloworld.yml -i hosts -c local
+      - zip output.zip ./*
+      - ansible-playbook helloworld.yml -i hosts -c local -e "ansible_python_interpreter=$(which python)"
