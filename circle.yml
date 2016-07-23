@@ -4,6 +4,7 @@ machine:
 
 dependencies:
   pre:
+    - aws configure set default.region eu-west-1
     - pip install --upgrade setuptools virtualenv
     - pip install ansible boto
 
