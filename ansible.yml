@@ -1,8 +1,9 @@
 ---
 - hosts: all
   vars:
+    aws_region: eu-west-1
     bucket_name: tgbot1-bucket
   tasks:
-    - s3: bucket={{ bucket_name }} mode=create region=eu-west-1
-    - s3: bucket={{ bucket_name }} mode=put object=lambda.zip src=output.zip
-    - s3: bucket={{ bucket_name }} mode=put object=cloudformation.json src=cloudformation.json
+    - s3: bucket={{ bucket_name }} region={{ aws_region }} mode=create
+    - s3: bucket={{ bucket_name }} region={{ aws_region }} mode=put object=lambda.zip src=output.zip
+    - s3: bucket={{ bucket_name }} region={{ aws_region }} mode=put object=cloudformation.json src=cloudformation.json
