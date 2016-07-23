@@ -6,6 +6,9 @@ console.log('Loading function');
 
 exports.handler = (event, context, callback) => {
 
+  callback(null, "Ok");
+  return(0);
+
   //Lets configure and request
   request({
       url: 'https://api.telegram.org/' + event.token +  '/sendmessage', //URL to hit
