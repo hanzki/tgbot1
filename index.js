@@ -11,7 +11,7 @@ exports.handler = (event, context, callback) => {
       //Lets post the following key/values as form
       json: {
           chat_id: event.update.message.chat.id,
-          text: 'bot: ' + event.update.message.text
+          text: event.update.message.text.split("").reverse().join("")
       }
   }, function(error, response, body){
       if(error) {
