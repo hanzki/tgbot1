@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Simple telegram bot for learning the telegram bot API",
   "main": "index.js",
+  "engines" : { "node" : ">=4.3" },
   "dependencies": {
     "request": "^2.73.0"
   },
