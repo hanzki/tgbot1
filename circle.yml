@@ -11,6 +11,6 @@ deployment:
   staging:
     branch: master
     commands:
+      - printenv
       - bash -x hosts.sh
-      - cat hosts
-      - ansible-playbook helloworld.yml -i hosts -c local
+      - ansible-playbook helloworld.yml -i hosts -c local -vvv
