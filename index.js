@@ -1,17 +1,12 @@
 'use strict';
 
-var request = require('request')
-
-console.log('Loading function');
+var request = require('request');
 
 exports.handler = (event, context, callback) => {
 
-  callback(null, "Ok");
-  return(0);
-
   //Lets configure and request
   request({
-      url: 'https://api.telegram.org/' + event.token +  '/sendmessage', //URL to hit
+      url: 'https://api.telegram.org/' + event.config.telegramBotToken +  '/sendmessage', //URL to hit
       method: 'POST',
       //Lets post the following key/values as form
       json: {

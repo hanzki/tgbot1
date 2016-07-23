@@ -13,6 +13,10 @@
     "ApiName" : {
       "Description" : "Name of the ApiGateway API to create",
       "Type": "String"
+    },
+    "TelegramBotToken": {
+      "Description" : "Telgram bot token",
+      "Type": "String"
     }
   },
 
@@ -89,7 +93,18 @@
           "IntegrationResponses": [{
             "StatusCode": "200"
           }],
-          "RequestTemplates": { "application/json": "$input.json('$')" }
+          "RequestTemplates": {
+            "application/json": {
+              "Fn::Join": [
+                "",
+                [
+                  "{\n  \"config\": {\n    \"telegramBotToken\": \"",
+                  { "Ref": "TelegramBotToken" },
+                  "\"\n  },\n  \"update\": $input.json('$')\n}"
+                ]
+              ]
+            }
+          }
         }
       }
     },

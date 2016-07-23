@@ -18,6 +18,8 @@
     - name: Copy cloudformation template to S3 bucket
       s3: bucket={{ bucket_name }} region={{ aws_region }} mode=put object={{ cf_template_s3_key }} src={{ cf_template_path }}
 
+    - debug: msg="telegram token = {{ lookup('env','TELEGRAM_BOT_TOKEN') }}"
+
     - name: Create cloudformation stack
       cloudformation:
         stack_name: "{{ cf_stack_name }}"
@@ -29,12 +31,10 @@
           LambdaS3Bucket: "{{ bucket_name }}"
           LambdaS3Key: "{{ lambda_s3_key }}"
           ApiName: "ansible-tgbot1"
+          TelegramBotToken: "{{ lookup('env','TELEGRAM_BOT_TOKEN') }}"
         tags:
           Stack: "{{ cf_stack_name }}"
       register: stack
-
-    - name: show stack outputs
-      debug: msg="My stack outputs are {{stack.stack_outputs}}"
 
     - name: update lambda function
       shell: aws lambda update-function-code --region {{ aws_region }} --function-name {{ stack.stack_outputs.LambdaArn }} --s3-bucket {{ bucket_name }} --s3-key {{ lambda_s3_key }}
