@@ -12,4 +12,4 @@ deployment:
     branch: master
     commands:
       - zip -r output.zip .
-      - ansible-playbook ansible.yml -i hosts -c local -e "ansible_python_interpreter=$(which python)"
+      - ansible-playbook ansible.yml -c local -e "ansible_python_interpreter=$(which python)"

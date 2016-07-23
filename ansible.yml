@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: 127.0.0.1
   vars:
     aws_region: eu-west-1
     bucket_name: tgbot1-bucket
@@ -13,12 +13,10 @@
       s3: bucket={{ bucket_name }} region={{ aws_region }} mode=create
 
     - name: Copy lambda code to S3 bucket
-      s3: bucket={{ bucket_name }} region={{ aws_region }} mode=put object={{ lambda_s3_key }} src={{ lambda_path }}
+      s3: bucket={{ bucket_name }} region={{ aws_region }} mode=put overwrite=different object={{ lambda_s3_key }} src={{ lambda_path }}
 
     - name: Copy cloudformation template to S3 bucket
-      s3: bucket={{ bucket_name }} region={{ aws_region }} mode=put object={{ cf_template_s3_key }} src={{ cf_template_path }}
-
-    - debug: msg="telegram token = {{ lookup('env','TELEGRAM_BOT_TOKEN') }}"
+      s3: bucket={{ bucket_name }} region={{ aws_region }} mode=put overwrite=different object={{ cf_template_s3_key }} src={{ cf_template_path }}
 
     - name: Create cloudformation stack
       cloudformation:
