@@ -4,7 +4,6 @@ machine:
 
 dependencies:
   pre:
-    - aws configure set default.region eu-west-1
     - pip install --upgrade setuptools virtualenv
     - pip install ansible boto
 
@@ -14,4 +13,4 @@ deployment:
     commands:
       - printenv
       - bash -x hosts.sh
-      - ansible-playbook helloworld.yml -i hosts -c local -vvv
+      - ansible-playbook helloworld.yml -i hosts -c local
