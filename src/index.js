@@ -1,6 +1,6 @@
 'use strict';
 
-var messageHandler =  require('./message_handler.js')
+var messageHandler =  require('./message_handler')
 
 exports.handler = (event, context, callback) => {
 

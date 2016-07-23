@@ -4,14 +4,14 @@ var request = require('request');
 
 exports.handleMessage = (message, config, callback) => {
 
-  console.log("Message received:", message)
+  console.log("Message received:", message);
 
-  var response = ""
+  var response = "";
 
   if(message.text === "Meow") {
-    response = "Meow!"
+    response = "Meow!";
   } else {
-    response = message.text.split("").reverse().join("")
+    response = reverseString(message.text);
   }
 
   //Lets configure and request
@@ -33,4 +33,8 @@ exports.handleMessage = (message, config, callback) => {
       }
   });
 
+};
+
+exports.reverseString = (string) => {
+  return string.split("").reverse().join("");
 };
