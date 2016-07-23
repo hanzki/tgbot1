@@ -11,5 +11,5 @@ deployment:
   staging:
     branch: master
     commands:
-      - zip output.zip ./*
+      - zip -r output.zip .
       - ansible-playbook ansible.yml -i hosts -c local -e "ansible_python_interpreter=$(which python)"
