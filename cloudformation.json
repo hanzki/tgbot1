@@ -98,9 +98,12 @@
               "Fn::Join": [
                 "",
                 [
-                  "{\n  \"config\": {\n    \"telegramBotToken\": \"",
-                  { "Ref": "TelegramBotToken" },
-                  "\"\n  },\n  \"update\": $input.json('$')\n}"
+                  "{\n",
+                  "  \"config\": {\n",
+                  "    \"telegramBotToken\": \"$stageVariables.telegramBotToken\"\n",
+                  "  },\n",
+                  "  \"update\": $input.json('$')\n",
+                  "}"
                 ]
               ]
             }
@@ -113,7 +116,7 @@
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": { "Ref": "LambdaApi" },
-        "Description": "My deployment",
+        "Description": "Initial Deployment",
         "StageName": "DummyStage"
       }
     },
@@ -124,7 +127,10 @@
         "StageName": "Prod",
         "Description": "Prod Stage",
         "RestApiId": { "Ref": "LambdaApi" },
-        "DeploymentId": { "Ref": "Deployment" }
+        "DeploymentId": { "Ref": "Deployment" },
+        "Variables": {
+          "telegramBotToken": { "Ref": "TelegramBotToken" }
+        }
       }
     }
 
@@ -134,6 +140,22 @@
     "LambdaArn": {
       "Description": "Arn of the created lambda function",
       "Value": { "Fn::GetAtt": [ "Lambda", "Arn" ] }
+    },
+    "LambdaEndpoint": {
+      "Description": "Url for calling the lambda",
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "https://",
+            { "Ref": "LambdaApi" },
+            ".execute-api.",
+            { "Ref": "AWS::Region" },
+            ".amazonaws.com/",
+            { "Ref": "Prod" }
+          ]
+        ]
+      }
     }
   }
 }
