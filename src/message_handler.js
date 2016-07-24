@@ -11,7 +11,7 @@ var _handleMessage = (message, config, callback) => {
   if(message.text === "Meow") {
     response = "Meow!";
   } else {
-    response = self.reverseString(message.text);
+    response = _reverseString(message.text);
   }
 
   //Lets configure and request
