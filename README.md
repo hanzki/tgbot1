@@ -1,3 +1,5 @@
+[![Build Status](https://circleci.com/gh/hanzki/tgbot1.svg?style=shield)](https://circleci.com/gh/hanzki/tgbot1)
+[![Telegram](https://patrolavia.github.io/telegram-badge/chat.svg)](https://telegram.me/hanzkitestbot) 
 # HanzkiTestBot
 Simple Telegram bot for learning Telegram bot API and continous integration.
 Say hi to [@HanzkiTestBot](https://telegram.me/hanzkitestbot)!
