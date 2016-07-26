@@ -6,13 +6,10 @@ var _handleMessage = (message, config, callback) => {
 
   console.log("Message received:", message);
 
-  var response = "";
-
-  if(message.text === "Meow") {
-    response = "Meow!";
-  } else {
-    response = _reverseString(message.text);
-  }
+  var response = JSON.stringify(message, null, 2)
+    .replace(/&/g, "&amp")
+    .replace(/</g, "&lt")
+    .replace(/>/g, "&gt");
 
   //Lets configure and request
   request({
@@ -21,7 +18,8 @@ var _handleMessage = (message, config, callback) => {
       //Lets post the following key/values as form
       json: {
           chat_id: message.chat.id,
-          text: response
+          text: "<pre>" + response + "</pre>",
+          parse_mode: "HTML"
       }
   }, function(error, response, body){
       if(error) {
