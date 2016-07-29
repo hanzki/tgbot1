@@ -8,6 +8,7 @@
     lambda_s3_key: lambda2.zip
     lambda_path: output.zip
     cf_stack_name: tgbot1
+    tg_bot_token: "{{ lookup('env','TELEGRAM_BOT_TOKEN') }}"
   tasks:
     - name: Create project S3 bucket
       s3: bucket={{ bucket_name }} region={{ aws_region }} mode=create
@@ -29,10 +30,18 @@
           LambdaS3Bucket: "{{ bucket_name }}"
           LambdaS3Key: "{{ lambda_s3_key }}"
           ApiName: "ansible-tgbot1"
-          TelegramBotToken: "{{ lookup('env','TELEGRAM_BOT_TOKEN') }}"
+          TelegramBotToken: "{{ tg_bot_token }}"
         tags:
           Stack: "{{ cf_stack_name }}"
       register: stack
 
     - name: update lambda function
       shell: aws lambda update-function-code --region {{ aws_region }} --function-name {{ stack.stack_outputs.LambdaArn }} --s3-bucket {{ bucket_name }} --s3-key {{ lambda_s3_key }}
+
+    - name: update telegram webhook
+      uri:
+        url: https://api.telegram.org/{{ tg_bot_token }}/setWebhook
+        method: POST
+        body_format: json
+        body:
+          url: "{{ stack.stack_outputs.LambdaEndpoint }}"

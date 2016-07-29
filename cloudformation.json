@@ -62,6 +62,31 @@
         "Lambda"
       ]
     },
+    "LambdaDDB": {
+      "Type" : "AWS::DynamoDB::Table",
+      "Properties" : {
+        "AttributeDefinitions" : [
+          {
+            "AttributeName" : "Key",
+            "AttributeType" : "S"
+          },
+          {
+            "AttributeName" : "Value",
+            "AttributeType" : "S"
+          }
+        ],
+        "KeySchema" : [
+          {
+            "AttributeName" : "Key",
+            "KeyType" : "HASH"
+          }
+        ],
+        "ProvisionedThroughput" : {
+          "ReadCapacityUnits" : "5",
+          "WriteCapacityUnits" : "5"
+        }
+      }
+    },
     "LambdaApi": {
       "Type": "AWS::ApiGateway::RestApi",
       "Properties": {
@@ -140,6 +165,10 @@
     "LambdaArn": {
       "Description": "Arn of the created lambda function",
       "Value": { "Fn::GetAtt": [ "Lambda", "Arn" ] }
+    },
+    "LambdaTable": {
+      "Description": "Name of the created DynamoDB table",
+      "Value": { "Ref": "LambdaDDB" }
     },
     "LambdaEndpoint": {
       "Description": "Url for calling the lambda",
