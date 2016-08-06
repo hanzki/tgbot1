@@ -7,13 +7,16 @@ var telegram = require('./telegram.js');
 
 exports.handler = (event, context, callback) => {
 
-  if( ! event.config ) {
+  var config = event.config;
+  var message = event.update.message;
+
+  if( ! config ) {
     callback("event.config missing");
     return;
   }
 
-  if(event.update.message) {
-    _.wrapCallback(util.parseCommand)(event.update.message).apply((command) => {
+  if(message) {
+    _.wrapCallback(util.parseCommand)(message).apply((command) => {
       if(command){
         console.log(command);
 
@@ -22,10 +25,10 @@ exports.handler = (event, context, callback) => {
           text: "Received command " + command.command
         };
 
-        telegram.sendMessage(telegramRequest, event.config.telegramBotToken, callback);
+        telegram.sendMessage(telegramRequest, config.telegramBotToken, callback);
 
       } else {
-        messageHandler.handleMessage(event.update.message, event.config, callback);
+        messageHandler.handleMessage(message, config, callback);
       }
     });
   } else {
