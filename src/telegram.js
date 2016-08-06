@@ -4,7 +4,7 @@ var request = require('request');
 
 module.exports.sendMessage = function (messageJson, telegramToken, callback) {
   request({
-      url: 'https://api.telegram.org/' + telegramBotToken + '/sendmessage',
+      url: 'https://api.telegram.org/' + telegramToken + '/sendmessage',
       method: 'POST',
       json: messageJson
   }, function(error, response, body) {
