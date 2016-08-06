@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "description": "Simple telegram bot for learning the telegram bot API",
   "main": "index.js",
-  "engines" : { "node" : ">=4.3" },
+  "engines": {
+    "node": ">=4.3"
+  },
   "dependencies": {
+    "aws-sdk": "^2.4.11",
+    "highland": "^3.0.0-beta.2",
     "request": "^2.73.0"
   },
   "devDependencies": {

@@ -1,6 +1,7 @@
 'use strict';
 
 var request = require('request');
+var telegram = require('./telegram.js');
 
 var _handleMessage = (message, config, callback) => {
 
@@ -11,22 +12,18 @@ var _handleMessage = (message, config, callback) => {
     .replace(/</g, "&lt")
     .replace(/>/g, "&gt");
 
-  //Lets configure and request
-  request({
-      url: 'https://api.telegram.org/' + config.telegramBotToken + '/sendmessage', //URL to hit
-      method: 'POST',
-      //Lets post the following key/values as form
-      json: {
-          chat_id: message.chat.id,
-          text: "<pre>" + response + "</pre>",
-          parse_mode: "HTML"
-      }
-  }, function(error, response, body){
+  var telegramRequest = {
+    chat_id: message.chat.id,
+    text: "<pre>" + response + "</pre>",
+    parse_mode: "HTML"
+  };
+
+  telegram.sendMessage(telegramRequest, config.telegramBotToken, function(error, data){
       if(error) {
           console.log(error);
           callback(error);
       } else {
-          console.log(response.statusCode, body);
+          console.log(data.response.statusCode, data.body);
           callback(null, "Ok");
       }
   });
