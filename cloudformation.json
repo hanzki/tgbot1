@@ -123,7 +123,7 @@
                 [
                   "{\n",
                   "  \"config\": {\n",
-                  "    \"telegramBotToken\": \"$stageVariables.telegramBotToken\"\n",
+                  "    \"telegramBotToken\": \"$stageVariables.telegramBotToken\",\n",
                   "    \"ddbTable\": \"$stageVariables.ddbTable\"\n",
                   "  },\n",
                   "  \"update\": $input.json('$')\n",
