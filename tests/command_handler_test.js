@@ -10,11 +10,18 @@ describe('CommandHandler', function() {
   beforeEach(function() {
     sinon.stub(telegram, 'sendMessage').callsArgWith(2, null, "Ok");
     sinon.stub(storage, 'storeValue').callsArgWith(3, null, null);
+    sinon.stub(storage, 'getValue').callsArgWith(2, null, {
+      Item: {
+        Id: {S:"key"},
+        Value: {S: "value"}
+      }
+    });
   });
 
   afterEach(function() {
     telegram.sendMessage.restore();
     storage.storeValue.restore();
+    storage.getValue.restore();
   });
 
   it('handleCommand() should send a telegram message if command is not regocnized', function(done) {
@@ -40,6 +47,21 @@ describe('CommandHandler', function() {
       function (error, response) {
         expect(response).to.equal("Ok");
         expect(storage.storeValue.calledOnce).to.be.true;
+        expect(telegram.sendMessage.calledOnce).to.be.true;
+        done();
+      }
+    );
+  });
+
+  it('handleCommand() should get value for /get command', function(done) {
+    var message = { chat: {id: 0} };
+    var command = { command: "/get", args: ["key"]}
+    var config = {};
+
+    commandHandler.handleCommand( message, command, config,
+      function (error, response) {
+        expect(response).to.equal("Ok");
+        expect(storage.getValue.calledOnce).to.be.true;
         expect(telegram.sendMessage.calledOnce).to.be.true;
         done();
       }

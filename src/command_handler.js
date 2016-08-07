@@ -19,12 +19,11 @@ module.exports.handleCommand = (message, command, config, callback) => {
       break;
 
     case "/get":
-      storage.getValue(config.ddbTable, command.args[0], callback);
       _.wrapCallback(storage.getValue)(config.ddbTable, command.args[0])
       .flatMap((getValueResult) => {
         return _.wrapCallback(telegram.sendMessage)({
           chat_id: message.chat.id,
-          text: "Value for key " + command.args[0] + " is " + getValueResult.data.Item.Value.S
+          text: "Value for key " + command.args[0] + " is " + getValueResult.Item.Value.S
         }, config.telegramBotToken);
       }).toCallback(callback);
       break;
