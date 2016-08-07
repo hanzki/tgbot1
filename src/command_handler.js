@@ -24,8 +24,8 @@ module.exports.handleCommand = (message, command, config, callback) => {
       .flatMap((getValueResult) => {
         return _.wrapCallback(telegram.sendMessage)({
           chat_id: message.chat.id,
-          text: "Value for key " + command.args[0] + " is " + getValueResult.data.Value.S
-        }, config.telegramBotToken)
+          text: "Value for key " + command.args[0] + " is " + getValueResult.data.Item.Value.S
+        }, config.telegramBotToken);
       }).toCallback(callback);
       break;
 
