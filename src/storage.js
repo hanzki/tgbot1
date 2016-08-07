@@ -19,7 +19,7 @@ module.exports.getValue = (table, id, callback) => {
 module.exports.storeValue = (table, key, value, callback) => {
 
   var params = {
-    Key: {
+    Item: {
       Id: {
         S: key
       },
