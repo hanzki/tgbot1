@@ -31,6 +31,6 @@ module.exports.storeValue = (table, key, value, callback) => {
     ReturnValues: "ALL_NEW"
   };
 
-  dynamodb.updateItem(params, callback);
+  dynamodb.putItem(params, callback);
 
 };
