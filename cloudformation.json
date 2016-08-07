@@ -122,6 +122,7 @@
                   "{\n",
                   "  \"config\": {\n",
                   "    \"telegramBotToken\": \"$stageVariables.telegramBotToken\"\n",
+                  "    \"ddbTable\": \"$stageVariables.ddbTable\"\n",
                   "  },\n",
                   "  \"update\": $input.json('$')\n",
                   "}"
@@ -150,7 +151,8 @@
         "RestApiId": { "Ref": "LambdaApi" },
         "DeploymentId": { "Ref": "Deployment" },
         "Variables": {
-          "telegramBotToken": { "Ref": "TelegramBotToken" }
+          "telegramBotToken": { "Ref": "TelegramBotToken" },
+          "ddbTable": { "Ref": "LambdaDDB" }
         }
       }
     }

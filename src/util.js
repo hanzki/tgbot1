@@ -9,7 +9,7 @@ module.exports.parseCommand = (message, callback) => {
    }
 
   _(message.entities).findWhere({type: 'bot_command', offset: 0}).map((firstCommand) => {
-    var command = message.text.substring(firstCommand.offset, (firstCommand.offset + firstCommand.length));
+    var command = message.text.substring(firstCommand.offset, (firstCommand.offset + firstCommand.length)).toLowerCase();
     var args = message.text.substring(firstCommand.offset + firstCommand.length).split(" ").filter(Boolean);
     return {command: command, args: args};
   }).toCallback(callback);
