@@ -13,7 +13,8 @@ module.exports.getValue = (table, id, callback) => {
     },
     TableName: table
   };
-  dynamodb.getItem(params, callback);
+  console.log("Calling getItem with:", params);
+  dynamodb.getItem(params, (e, d) => {console.log("GetItem response:", e, d); callback(e, d);});
 };
 
 module.exports.storeValue = (table, key, value, callback) => {
@@ -29,7 +30,7 @@ module.exports.storeValue = (table, key, value, callback) => {
     },
     TableName: table
   };
-
-  dynamodb.putItem(params, callback);
+  console.log("Calling putItem with:", params);
+  dynamodb.putItem(params, (e, d) => {console.log("PutItem response:", e, d); callback(e, d);});
 
 };
